@@ -1,0 +1,159 @@
+.tm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  animation: fadeIn 0.4s ease-out;
+}
+
+.tm-modal {
+  width: 560px;
+  max-width: calc(100% - 32px);
+  background: var(--bg-primary);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-2xl);
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  animation: scaleIn 0.3s ease-out;
+}
+
+.tm-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--bg-secondary);
+}
+
+.tm-icon {
+  width: 40px;
+  height: 40px;
+  background: var(--color-primary-100);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary-600);
+  font-weight: 700;
+}
+
+.tm-title {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.tm-body {
+  padding: 1.5rem;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.tm-terms {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.tm-terms h4 {
+  color: var(--text-primary);
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.tm-terms p {
+  margin-bottom: 1rem;
+}
+
+.tm-accept {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 1.25rem;
+  margin-top: 1rem;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tm-accept:hover {
+  border-color: var(--color-primary-400);
+  background: var(--bg-tertiary);
+}
+
+.tm-checkbox {
+  position: relative;
+  width: 1.4rem;
+  height: 1.4rem;
+  flex-shrink: 0;
+  border: 2px solid var(--border-color);
+  border-radius: 6px;
+  background: var(--bg-primary);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tm-checkbox.checked {
+  background: var(--color-primary-500);
+  border-color: var(--color-primary-500);
+}
+
+.tm-checkbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  z-index: 2;
+}
+
+.tm-checkbox svg {
+  width: 0.9rem;
+  height: 0.9rem;
+  color: white;
+  z-index: 1;
+}
+
+.tm-accept span {
+  user-select: none;
+}
+
+.tm-actions {
+  display: flex;
+  gap: 12px;
+  padding: 1.25rem 1.5rem;
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+  justify-content: flex-end;
+}
+
+@media (max-width: 640px) {
+  .tm-modal {
+    width: 92%;
+    border-radius: var(--radius-lg);
+  }
+
+  .tm-actions {
+    flex-direction: column-reverse;
+  }
+
+  .tm-actions .c-btn {
+    width: 100%;
+  }
+}

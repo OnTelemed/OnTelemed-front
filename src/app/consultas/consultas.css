@@ -1,0 +1,379 @@
+.consultas-main {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+}
+
+.service-card {
+    position: relative;
+    padding: 1.25rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    border-radius: var(--radius-2xl);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    box-shadow: var(--shadow-xl);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.service-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--color-primary-400);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.service-card.urgency {
+    border-left: 5px solid #ef4444;
+}
+
+.service-card.urgency:hover {
+    border-color: #ef4444;
+}
+
+.service-card.scheduling {
+    border-left: 5px solid var(--color-primary-500);
+}
+
+.service-icon-wrapper {
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius-xl);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.75rem;
+    background: var(--bg-secondary);
+    color: var(--color-primary-500);
+    margin-bottom: 0.25rem;
+}
+
+.urgency .service-icon-wrapper {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+}
+
+.service-card h3 {
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin: 0;
+    color: var(--text-primary);
+}
+
+.service-card p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 0;
+    flex: 1;
+}
+
+.section-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border-color);
+}
+
+.appointments-section {
+    animation: fadeIn 0.8s ease-out;
+}
+
+/* Wrapper para posicionamento relativo das setas */
+.appointments-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.appointments-list {
+    display: flex;
+    overflow-x: auto;
+    gap: 1.25rem;
+    padding: 1rem 0.75rem 1.5rem;
+    margin: -1rem -0.75rem;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    scroll-behavior: smooth;
+    width: calc(100% + 1.5rem);
+}
+
+.scroll-btn {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--bg-primary);
+    /* Fundo sólido para cobrir cards */
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    color: var(--text-primary);
+    transition: var(--transition-base);
+    opacity: 0.9;
+}
+
+.scroll-btn:hover {
+    background: var(--bg-secondary);
+    transform: scale(1.05);
+    opacity: 1;
+}
+
+.scroll-btn.left {
+    left: -20px;
+}
+
+.scroll-btn.right {
+    right: -20px;
+}
+
+/* Ocultar setas em mobile se preferir, ou ajustar posição */
+@media (max-width: 768px) {
+    .scroll-btn {
+        display: none;
+        /* Em mobile o touch scroll é nativo e melhor */
+    }
+}
+
+.appointments-list::-webkit-scrollbar {
+    display: none;
+}
+
+.appointment-mini-card {
+    min-width: 350px;
+    flex-shrink: 0;
+    /* ... existing styles below ... */
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-xl);
+    padding: 0.95rem 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: var(--transition-base);
+}
+
+.appointment-mini-card:hover {
+    transform: translateY(-6px) scale(1.02);
+    border-color: var(--color-primary-400);
+    box-shadow: var(--shadow-xl);
+    background: var(--card-bg);
+}
+
+[data-theme="light"] .appointment-mini-card:hover {
+    background: var(--bg-primary);
+}
+
+.appt-date-box {
+    background: var(--color-primary-500);
+    color: white;
+    padding: 0.75rem;
+    border-radius: var(--radius-lg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 65px;
+}
+
+.appt-date-box .day {
+    font-size: 1.25rem;
+    font-weight: 800;
+    line-height: 1;
+    color: white;
+}
+
+.appt-date-box .month {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.appt-details {
+    flex: 1;
+}
+
+.appt-details h4 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.appt-details p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-full);
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.badge.success {
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+}
+
+@media (max-width: 900px) {
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 767px) {
+    .consultas-main {
+        max-width: 100%;
+    }
+
+    .services-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .service-card {
+        padding: 1rem 1.25rem;
+    }
+
+    .service-card h3 {
+        font-size: 1.15rem;
+    }
+
+    .service-card p {
+        font-size: 0.9rem;
+    }
+
+    .service-icon-wrapper {
+        width: 44px;
+        height: 44px;
+        font-size: 1.35rem;
+    }
+
+    .section-title {
+        font-size: 1.05rem;
+        margin-bottom: 1rem;
+    }
+
+    .appointment-mini-card {
+        min-width: 280px;
+    }
+
+    .appt-date-box {
+        padding: 0.5rem;
+        min-width: 55px;
+    }
+
+    .appt-date-box .day {
+        font-size: 1.1rem;
+    }
+
+    .appt-details h4 {
+        font-size: 0.95rem;
+    }
+
+    .appt-details p {
+        font-size: 0.8rem;
+    }
+
+    .appointments-list {
+        padding: 0.5rem 0.25rem 1rem;
+        margin: -0.5rem -0.25rem;
+        width: calc(100% + 0.5rem);
+        gap: 0.75rem;
+    }
+}
+
+/* Scheduling Card Specifics */
+.service-card.scheduling .service-icon-wrapper {
+    background: rgba(14, 165, 233, 0.1);
+    color: var(--color-primary-500);
+}
+
+.btn-scheduling {
+    transition: var(--transition-base);
+}
+
+/* Custom outlined styles for Consultas Page */
+.urgency .btn.primary {
+    background: white !important;
+    color: #ef4444 !important;
+    border: 2px solid #ef4444 !important;
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.1);
+}
+
+.urgency .btn.primary:hover {
+    background: #ef4444 !important;
+    color: white !important;
+    box-shadow: 0 8px 20px rgba(239, 68, 68, 0.2);
+}
+
+.scheduling .btn-scheduling {
+    background: white !important;
+    color: var(--color-primary-500) !important;
+    border: 2px solid var(--color-primary-500) !important;
+    box-shadow: 0 6px 16px rgba(14, 165, 233, 0.3) !important;
+}
+
+.scheduling .btn-scheduling:hover {
+    background: var(--color-primary-500) !important;
+    color: white !important;
+    box-shadow: 0 8px 20px rgba(14, 165, 233, 0.4) !important;
+}
+
+[data-theme="dark"] .btn-scheduling,
+[data-theme="dark"] .urgency .btn.primary {
+    background: transparent !important;
+}
+
+[data-theme="dark"] .btn-scheduling:hover,
+[data-theme="dark"] .urgency .btn.primary:hover {
+    background: var(--color-primary-600) !important;
+    border-color: var(--color-primary-600) !important;
+}
+
+/* Modal Buttons Override */
+.btn-modal-back {
+    background: white !important;
+    color: var(--color-primary-500) !important;
+    border: 2px solid var(--color-primary-500) !important;
+    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.2) !important;
+    transition: var(--transition-base);
+}
+
+.btn-modal-back:hover {
+    background: var(--color-primary-50) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(14, 165, 233, 0.3) !important;
+}
+
+[data-theme="dark"] .btn-modal-back {
+    background: transparent !important;
+}
+
+[data-theme="dark"] .btn-modal-back:hover {
+    background: rgba(14, 165, 233, 0.1) !important;
+}

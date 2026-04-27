@@ -1,0 +1,115 @@
+/* ============================================
+   HEADER STYLES - MATRIARCA
+   Header is visible only at the top of the page
+   and fades/slides out when the user scrolls down
+   ============================================ */
+
+.site-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 1.5rem 0;
+  background: transparent;
+}
+
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.header-logo {
+  object-fit: contain;
+}
+
+.header-nav {
+  display: flex;
+  gap: 2rem;
+}
+
+.header-nav a {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  transition: color var(--transition-fast);
+  text-decoration: none;
+}
+
+.header-nav a:hover {
+  color: var(--color-primary-600);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.btn-login {
+  color: var(--color-primary-600);
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+}
+
+.btn-signup {
+  background: var(--color-primary-600);
+  color: white;
+  padding: 0.75rem 1.75rem;
+  border-radius: var(--radius-full);
+  font-weight: 700;
+  font-size: 0.95rem;
+  box-shadow: 0 4px 12px rgba(0, 75, 97, 0.15);
+  transition: all var(--transition-base);
+  text-decoration: none;
+}
+
+.btn-signup:hover {
+  transform: translateY(-2px);
+  background: var(--color-primary-500);
+  box-shadow: 0 8px 20px rgba(0, 75, 97, 0.25);
+}
+
+@media (max-width: 1024px) {
+  .header-nav {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .site-header {
+    padding: 1rem 0;
+  }
+
+  .header-logo {
+    width: 110px;
+    height: auto;
+  }
+
+  .header-actions {
+    gap: 1rem;
+  }
+
+  .btn-login {
+    font-size: 0.85rem;
+  }
+
+  .btn-signup {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.85rem;
+  }
+}

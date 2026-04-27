@@ -1,0 +1,57 @@
+/* Styles specific to DadosConvenioCard */
+
+.register-card.dados-convenio-card {
+  max-width: 480px;
+}
+
+.dados-convenio-card .form-label {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.dados-convenio-card .label-title {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+/* center the skip step and give it spacing */
+.dados-convenio-card .skip-row {
+  margin: 1.5rem 0 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dados-convenio-card .skip-step {
+  color: var(--text-tertiary);
+  font-size: 0.9rem;
+  text-decoration: underline;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.dados-convenio-card .skip-step:hover {
+  color: var(--color-primary-500);
+}
+
+/* proportional action buttons */
+.register-card.dados-convenio-card .form-actions.actions-full {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.register-card.dados-convenio-card .form-actions.actions-full .c-btn {
+  flex: 1;
+}
+
+@media (max-width: 640px) {
+  .register-card.dados-convenio-card .form-actions.actions-full {
+    flex-direction: column-reverse;
+  }
+}

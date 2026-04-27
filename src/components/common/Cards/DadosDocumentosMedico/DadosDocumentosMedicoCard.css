@@ -1,0 +1,91 @@
+.register-card.dados-documentos-medico-card {
+	max-width: 680px;
+}
+
+/* File field wrapper */
+.file-field {
+	position: relative;
+	width: 100%;
+}
+
+.file-field input[type="file"] {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	cursor: pointer;
+	z-index: 2;
+}
+
+.file-visual {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 12px;
+	padding: 1rem;
+	border: 1px dashed var(--border-color);
+	border-radius: var(--radius-lg);
+	background: var(--bg-secondary);
+	text-align: center;
+	transition: all var(--transition-base);
+}
+
+.file-icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: var(--bg-primary);
+	padding: 0.5rem;
+	border-radius: var(--radius-md);
+	box-shadow: var(--shadow-sm);
+}
+
+.file-text {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	text-align: left;
+}
+
+.file-placeholder {
+	color: var(--text-muted);
+	font-size: 0.9rem;
+}
+
+.file-sub {
+	font-size: 0.75rem;
+	color: var(--text-tertiary);
+	margin-top: 2px;
+}
+
+.file-placeholder.has-file {
+	color: var(--text-primary);
+	font-weight: 600;
+}
+
+.file-visual:hover {
+	background: var(--bg-tertiary);
+	border-color: var(--color-primary-400);
+}
+
+/* when a file is attached change border and text/icon color */
+.file-visual.has-file {
+	border-style: solid;
+	border-color: var(--color-primary-500);
+	background: var(--bg-primary);
+}
+
+.file-visual.has-file .file-placeholder.has-file {
+	color: var(--color-primary-600);
+}
+
+[data-theme="dark"] .file-visual.has-file .file-placeholder.has-file {
+	color: var(--color-primary-400);
+}
+
+.error-text {
+	color: var(--color-error);
+	margin-top: 8px;
+	font-size: 0.85rem;
+}
