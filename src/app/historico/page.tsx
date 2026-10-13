@@ -997,7 +997,7 @@ export default function HistoricoPage() {
             )}
 
             <div style={{ marginTop: '2rem', textAlign: 'center', fontSize: '0.8rem', color: 'var(--text-tertiary)' }}>
-              Prescrição gerada via Plataforma Matriarca
+              Prescrição gerada via Plataforma OnTelemed
             </div>
           </div>
         )}
@@ -1010,19 +1010,16 @@ export default function HistoricoPage() {
 
           <div className="pdf-header">
             <div className="pdf-logo-wrapper">
-              <div className="pdf-logo-circle" style={{ background: 'transparent', boxShadow: 'none' }}>
-                <img src="/images/logo_matriarca.png" alt="Matriarca" width={48} height={48} style={{ borderRadius: '8px', objectFit: 'contain' }} />
-              </div>
               <div className="pdf-logo-text">
-                <h1>Matriarca</h1>
+                <h1>OnTelemed</h1>
                 <p>Soluções em Saúde</p>
               </div>
             </div>
             <div className="pdf-header-meta">
-              <div>Matriarca Soluções em Saúde Ltda.</div>
+              <div>OnTelemed Soluções em Saúde Ltda.</div>
               <div>CNPJ: 00.000.000/0001-00</div>
-              <div>contato@matriarcasaude.com.br</div>
-              <div>www.matriarcasaude.com.br</div>
+              <div>contato@ontelemed.com.br</div>
+              <div>www.ontelemed.com.br</div>
             </div>
           </div>
 

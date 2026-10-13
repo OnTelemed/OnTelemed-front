@@ -37,9 +37,6 @@ export default function PerfilPage() {
   // States for Uploads
   const [uploadingDoc, setUploadingDoc] = useState<string | null>(null);
 
-  // Mevo: Complete Profile Modal
-  const [showCompleteModal, setShowCompleteModal] = useState(false);
-
   useEffect(() => {
     fetchProfile();
   }, []);
@@ -61,13 +58,6 @@ export default function PerfilPage() {
       }
 
       setProfile(data);
-
-      // Mevo: Verificação automática de perfil completo para pacientes
-      if (data.tipo_usuario === 'paciente' && data.paciente) {
-        if (!data.paciente.peso || !data.paciente.altura) {
-          setShowCompleteModal(true);
-        }
-      }
     } catch (error: any) {
       console.error('Erro ao buscar perfil:', error);
       // Handle Unauthorized
@@ -817,23 +807,7 @@ export default function PerfilPage() {
         )}
       </ContentModal>
 
-      {/* Complete Profile Modal (Mevo) */}
-      <Modal
-        isOpen={showCompleteModal}
-        config={{
-          type: 'info',
-          title: 'Complete seu Perfil',
-          message: 'Para emitirmos suas receitas digitais, precisamos do seu peso e altura.',
-          confirmText: 'Atualizar Agora',
-          cancelText: 'Pular',
-          showCancel: true
-        }}
-        onConfirm={() => {
-          setShowCompleteModal(false);
-          handleEditOpen();
-        }}
-        onCancel={() => setShowCompleteModal(false)}
-      />
+
 
       <Modal
         isOpen={modal.isOpen}

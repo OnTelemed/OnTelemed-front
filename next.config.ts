@@ -7,8 +7,8 @@ const nextConfig: NextConfig = {
   // Standalone output para Docker — gera build autocontido e leve (~100MB)
   output: 'standalone',
   async rewrites() {
-    // Proxy /api/* para a API backend (Cloud Run ou localhost)
-    const target = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000').replace(/\/$/, '');
+    // Proxy /api/* para a API backend (Cloud Run ou localhost:3001)
+    const target = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001').replace(/\/$/, '');
 
     return [
       {

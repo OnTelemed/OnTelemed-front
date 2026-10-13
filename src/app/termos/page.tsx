@@ -13,7 +13,7 @@ export default function TermosPage() {
     <div className="termos-page">
       <div className="termos-container">
         <header className="termos-header">
-          <img src="/images/logo_matriarca_icon.svg" alt="Matriarca" className="termos-logo" />
+          <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--color-primary-600)', marginBottom: '0.5rem' }}>OnTelemed</h2>
           <h1>Termos de Uso e Política de Privacidade</h1>
           <p>Última atualização: 17 de abril de 2026</p>
         </header>
@@ -26,12 +26,12 @@ export default function TermosPage() {
           <section className="termos-section">
             <h3 className="text-xl font-bold mb-4">5. Encarregado de Proteção de Dados (DPO)</h3>
             <p>
-              Em conformidade com o Artigo 41 da LGPD, a Matriarca Telemedicina designou um Encarregado de Proteção de Dados para atuar como canal de comunicação entre o controlador, os titulares dos dados e a Autoridade Nacional de Proteção de Dados (ANPD).
+              Em conformidade com o Artigo 41 da LGPD, a OnTelemed designou um Encarregado de Proteção de Dados para atuar como canal de comunicação entre o controlador, os titulares dos dados e a Autoridade Nacional de Proteção de Dados (ANPD).
             </p>
             <div className="dpo-info mt-4 p-4 rounded-lg bg-slate-800/50 border border-slate-700">
               <p><strong>Nome:</strong> Jose Alencar (DPO Interino)</p>
-              <p><strong>Contato:</strong> privacidade@matriarca.med.br</p>
-              <p><strong>Endereço:</strong> Setor de Conformidade e Proteção de Dados - Matriarca</p>
+              <p><strong>Contato:</strong> privacidade@ontelemed.med.br</p>
+              <p><strong>Endereço:</strong> Setor de Conformidade e Proteção de Dados - OnTelemed</p>
             </div>
           </section>
 

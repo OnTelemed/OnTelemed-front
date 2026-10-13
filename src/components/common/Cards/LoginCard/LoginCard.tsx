@@ -1,12 +1,10 @@
 'use client';
 
-import Image from 'next/image';
-import Input from '@/components/common/Inputs/Input';
-import Button from '@/components/common/Buttons/Button';
 import { useState } from 'react';
+import Link from 'next/link';
+import { Eye, EyeOff, Loader2 } from 'lucide-react';
 import { isEmailFormatValid } from '@/lib/validation/validators';
 import doLogin from '@/lib/axios/login';
-import doSocialLogin from '@/lib/axios/social';
 import { doGoogleAuth } from '@/lib/axios/google';
 import signInWithGoogle from '@/lib/google';
 import { saveUser } from '@/lib/auth';
@@ -19,76 +17,71 @@ type Props = {
 export default function LoginCard({ onLogin }: Props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError('');
     setEmailError('');
-    // Validar formato
+    setPasswordError('');
+
     if (!isEmailFormatValid(email)) {
-      setEmailError('Formato de email inválido.');
+      setEmailError('Formato de e-mail inválido.');
       return;
     }
     if (!email || !password) {
-      setError('Informe email e senha para continuar.');
+      setError('Informe e-mail e senha para continuar.');
       return;
     }
-    (async () => {
-      setLoading(true);
-      try {
-        const resp = await doLogin({ email, senha: password });
-        // resp expected: { message, user, token? }
 
-        // Ensure token is captured and associated with user
-        const token = resp.token || resp.user?.token || resp.accessToken || resp.access_token || resp.jwt || resp.id_token;
-        const user = resp.user || {};
+    setLoading(true);
+    try {
+      const resp = await doLogin({ email, senha: password });
+      const token = resp.token || resp.user?.token || resp.accessToken || resp.access_token || resp.jwt || resp.id_token;
+      const user = resp.user || {};
 
-        if (token) {
-          user.token = token;
-          // ✅ NOVO: Salvar token em localStorage para que getToken() encontre
-          localStorage.setItem('telemedicina_token', token);
-          document.cookie = `telemedicina_token=${token}; path=/; max-age=86400; SameSite=Lax`;
-        }
-
-        // Clear other standalone tokens to avoid conflicts
-        localStorage.removeItem('token');
-        localStorage.removeItem('auth_token');
-
-        // save user to localStorage
-        saveUser(user);
-        onLogin?.({ email, password, user, raw: resp });
-      } catch (err: any) {
-        // reset field errors
-        setEmailError('');
-        setPasswordError('');
-        setError('');
-
-        handleApiError(err, {
-          setGlobalError: setError,
-          setFieldError: (field, msg) => {
-            if (field === 'email') setEmailError(msg);
-            if (field === 'senha' || field === 'password') setPasswordError(msg);
-          }
-        });
-      } finally {
-        setLoading(false);
+      if (token) {
+        user.token = token;
+        localStorage.setItem('telemedicina_token', token);
+        document.cookie = `telemedicina_token=${token}; path=/; max-age=86400; SameSite=Lax`;
       }
-    })();
+
+      localStorage.removeItem('token');
+      localStorage.removeItem('auth_token');
+
+      saveUser(user);
+      onLogin?.({ email, password, user, raw: resp });
+    } catch (err: any) {
+      setEmailError('');
+      setPasswordError('');
+      setError('');
+
+      handleApiError(err, {
+        setGlobalError: setError,
+        setFieldError: (field, msg) => {
+          if (field === 'email') setEmailError(msg);
+          if (field === 'senha' || field === 'password') setPasswordError(msg);
+        }
+      });
+    } finally {
+      setLoading(false);
+    }
   }
 
   async function handleGoogleSignIn() {
     setError('');
+    setEmailError('');
+    setPasswordError('');
     setLoading(true);
     try {
-      // Não validar domínio aqui (Google garante email); apenas fluxo social.
       const idToken = await signInWithGoogle();
       const resp = await doGoogleAuth({ id_token: idToken });
 
-      // ✅ NOVO: Validações defensivas
       if (!resp) {
         throw new Error('Resposta vazia do servidor. Tente novamente.');
       }
@@ -96,39 +89,26 @@ export default function LoginCard({ onLogin }: Props) {
       const token = resp.token || resp.user?.token || resp.accessToken || resp.access_token || resp.jwt || resp.id_token;
       const user = resp?.user || null;
 
-      // Debug logging (remover em produção se necessário)
-      console.log('[GoogleLogin] Response keys:', Object.keys(resp));
-      console.log('[GoogleLogin] Has token:', !!token);
-      console.log('[GoogleLogin] Has user:', !!user);
-      console.log('[GoogleLogin] User keys:', user ? Object.keys(user) : 'no user');
-
-      // ✅ NOVO: Validar token
       if (!token) {
-        console.error('[GoogleLogin] No token found in response:', resp);
-        throw new Error('Falha na autenticação Google. Token não recebido. Tente novamente ou use email/senha.');
+        throw new Error('Falha na autenticação Google. Token não recebido.');
       }
 
-      // ✅ NOVO: Validar user
       if (!user) {
-        console.error('[GoogleLogin] No user data in response:', resp);
-        throw new Error('Falha ao carregar dados do usuário. Tente novamente com outra conta Google.');
+        throw new Error('Falha ao carregar dados do usuário. Tente novamente.');
       }
 
-      // ✅ NOVO: Validar email (mínimo necessário)
       if (!user.email) {
-        console.error('[GoogleLogin] User missing email:', user);
-        throw new Error('Sua conta Google não forneceu um email. Tente usar outra conta Google.');
+        throw new Error('Sua conta Google não forneceu um e-mail válido.');
       }
 
       user.token = token;
-      // ✅ Salvar token em localStorage para que getToken() encontre
       localStorage.setItem('telemedicina_token', token);
       document.cookie = `telemedicina_token=${token}; path=/; max-age=86400; SameSite=Lax`;
 
       saveUser(user);
       onLogin?.({ email: user?.email, password: '', user, raw: resp });
     } catch (err: any) {
-      console.error('[GoogleLogin] Error:', err);
+      console.error('[GoogleLogin] Erro:', err);
       handleApiError(err, { setGlobalError: setError });
     } finally {
       setLoading(false);
@@ -136,61 +116,132 @@ export default function LoginCard({ onLogin }: Props) {
   }
 
   return (
-    <section className="register-card dados-acesso-card">
-      <div className="login-brand">
-        <img src="/images/logo_matriarca_icon.svg" alt="Matriarca" width={36} height={36} style={{ borderRadius: '8px', objectFit: 'contain', display: 'block', margin: '0 auto' }} />
+    <div className="auth-form-container">
+      {/* Header */}
+      <div className="auth-header">
+        <h1 className="auth-title">
+          Bem-vindo(a) de volta
+        </h1>
+        <p className="auth-subtitle">
+          Não tem uma conta?{' '}
+          <Link href="/register?tipo=paciente" className="auth-link">
+            Cadastre-se
+          </Link>
+        </p>
       </div>
 
-      <h2 className="register-title">Bem-vindo(a) de volta!</h2>
-      <p className="register-subtitle">Acesse sua conta para continuar</p>
+      {/* Form */}
+      <form onSubmit={handleSubmit} className="auth-form" autoComplete="on">
+        {/* Email */}
+        <div className="auth-field-group">
+          <label className="auth-label">
+            Endereço de E-mail
+          </label>
+          <div className="auth-input-wrapper">
+            <input
+              type="email"
+              name="email"
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                if (emailError) setEmailError('');
+              }}
+              placeholder="seu.email@exemplo.com"
+              className={`auth-input ${emailError ? 'error' : ''}`}
+              required
+            />
+          </div>
+          {emailError && <span className="auth-error-text">{emailError}</span>}
+        </div>
 
-      <form
-        className="register-form"
-        onSubmit={(e) => {
-          handleSubmit(e);
-        }}
-        autoComplete="new-password"
-      >
-        <Input
-          name="email"
-          type="email"
-          placeholder="seu.email@exemplo.com"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className={emailError ? 'c-input--error' : ''}
-        />
-        {emailError && <div className="error-text">{emailError}</div>}
+        {/* Password */}
+        <div className="auth-field-group">
+          <label className="auth-label">
+            Senha
+          </label>
+          <div className="auth-input-wrapper">
+            <input
+              type={showPassword ? 'text' : 'password'}
+              name="password"
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                if (passwordError) setPasswordError('');
+              }}
+              placeholder="Sua senha"
+              className={`auth-input has-toggle ${passwordError ? 'error' : ''}`}
+              required
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="auth-eye-btn"
+              aria-label={showPassword ? 'Ocultar senha' : 'Exibir senha'}
+            >
+              {showPassword ? <EyeOff size={19} /> : <Eye size={19} />}
+            </button>
+          </div>
+          {passwordError && <span className="auth-error-text">{passwordError}</span>}
+        </div>
 
-        <Input
-          name="password"
-          type="password"
-          placeholder="Sua senha"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className={passwordError ? 'c-input--error' : ''}
-        />
-        {passwordError && <div className="error-text">{passwordError}</div>}
+        {/* Remember Me + Forgot Password */}
+        <div className="auth-remember-row">
+          <label className="auth-checkbox-label">
+            <input
+              type="checkbox"
+              name="rememberMe"
+              checked={rememberMe}
+              onChange={(e) => setRememberMe(e.target.checked)}
+              className="auth-checkbox"
+            />
+            <span>Lembrar de mim</span>
+          </label>
+          <a href="#" className="auth-forgot-link">
+            Esqueceu a senha?
+          </a>
+        </div>
 
-        {error && <div className="error-text">{error}</div>}
+        {/* Global Error Banner */}
+        {error && (
+          <div className="auth-global-error">
+            {error}
+          </div>
+        )}
 
-        <Button type="submit" variant="primary" disabled={loading}>{loading ? 'Entrando...' : 'Entrar'}</Button>
+        {/* Submit Button */}
+        <button
+          type="submit"
+          disabled={loading}
+          className="auth-submit-btn"
+        >
+          {loading && <Loader2 size={19} className="animate-spin" />}
+          <span>{loading ? 'Entrando...' : 'Entrar'}</span>
+        </button>
+
+        {/* Divider */}
+        <div className="auth-divider">
+          <div className="auth-divider-line"></div>
+          <span className="auth-divider-text">ou continue com</span>
+        </div>
+
+        {/* Google Sign In */}
+        <div>
+          <button
+            type="button"
+            onClick={handleGoogleSignIn}
+            disabled={loading}
+            className="auth-google-btn"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" className="shrink-0">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+            </svg>
+            <span>Continuar com Google</span>
+          </button>
+        </div>
       </form>
-
-      <div className="forgot-row">
-        <a className="link-small" href="#">Esqueceu sua senha?</a>
-      </div>
-
-      <div className="divider"><span>Ou continue com</span></div>
-
-      <Button className="google-btn" variant="google" type="button" onClick={handleGoogleSignIn} disabled={loading}>
-        <Image src="/images/googleIcon.svg" alt="Google" width={20} height={20} />
-        <span>Entrar com Google</span>
-      </Button>
-
-      <div className="register-footer">
-        <span>Não tem uma conta? </span>
-        <a className="link-small" href="/register?tipo=paciente">Cadastre-se</a>
-      </div>
-    </section>
+    </div>
   );
 }

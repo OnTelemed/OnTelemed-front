@@ -15,21 +15,16 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://matriarcatelemed.com.br"),
+  metadataBase: new URL("https://ontelemed.com.br"),
   title: {
-    default: "Matriarca Telemedicina - Saúde Online com Especialistas",
-    template: "%s | Matriarca Telemedicina"
+    default: "OnTelemed - Saúde Online com Especialistas",
+    template: "%s | OnTelemed"
   },
-  icons: {
-    icon: "/images/logo_matriarca_icon.svg",
-    shortcut: "/images/logo_matriarca_icon.svg",
-    apple: "/images/logo_matriarca_icon.svg",
-  },
-  description: "Matriarca: Acesso imediato a especialistas de alto nível através de uma plataforma segura e intuitiva. Atendimento rápido, seguro e no conforto da sua casa.",
-  keywords: ["matriarca", "saúde online", "telemedicina moderna", "consulta online", "médico online", "saúde digital", "atendimento médico"],
-  authors: [{ name: "Matriarca Soluções em Saúde" }],
-  creator: "Matriarca",
-  publisher: "Matriarca",
+  description: "OnTelemed: Acesso imediato a especialistas de alto nível através de uma plataforma segura e intuitiva. Atendimento rápido, seguro e no conforto da sua casa.",
+  keywords: ["ontelemed", "telemedicina", "saúde online", "consulta online", "médico online", "saúde digital", "atendimento médico"],
+  authors: [{ name: "OnTelemed" }],
+  creator: "OnTelemed",
+  publisher: "OnTelemed",
   robots: {
     index: true,
     follow: true,
@@ -37,24 +32,15 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "pt_BR",
-    url: "https://matriarcasaude.com.br",
-    title: "Matriarca - Soluções em Saúde",
-    description: "Plataforma de telemedicina Matriarca para agendamento de consultas online com médicos qualificados.",
-    siteName: "Matriarca",
-    images: [
-      {
-        url: "/images/logo_matriarca.png",
-        width: 1200,
-        height: 630,
-        alt: "Matriarca"
-      }
-    ]
+    url: "https://ontelemed.com.br",
+    title: "OnTelemed - Soluções em Saúde",
+    description: "Plataforma de telemedicina OnTelemed para agendamento de consultas online com médicos qualificados.",
+    siteName: "OnTelemed",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Matriarca",
-    description: "Consultas médicas online rápidas e seguras com Matriarca.",
-    images: ["/images/logo_matriarca.png"],
+    title: "OnTelemed",
+    description: "Consultas médicas online rápidas e seguras com OnTelemed.",
   },
 };
 

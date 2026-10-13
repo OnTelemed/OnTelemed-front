@@ -59,7 +59,7 @@ const schema = z.object({
     .min(1, 'Informe o telefone')
     .refine(isValidPhone, 'Telefone inválido.'),
   motherName: z.string()
-    .min(1, 'Nome da mãe é obrigatório para emissão de receitas.'),
+    .min(1, 'Informe o nome da mãe.'),
   motherContact: z.string().optional(),
 }).superRefine((data, ctx) => {
   // motherName is already handled by required in schema
@@ -136,10 +136,7 @@ export default function DadosPessoaisPacienteCard({ onBack, onComplete }: Props)
   const birthDate = watch('birthDate');
   const minor = isMinor(birthDate);
 
-  // No longer linked to minor condition for Mevo compliance
-  useEffect(() => {
-    // keeping effect if needed for other logic
-  }, []);
+
 
   const onSubmit = (data: any) => {
     onComplete?.(data);
@@ -148,7 +145,6 @@ export default function DadosPessoaisPacienteCard({ onBack, onComplete }: Props)
   return (
     <section className="register-card dados-pessoais-card">
       <div className="register-brand">
-        <img src="/images/logo_matriarca_icon.svg" alt="Matriarca" width={36} height={36} style={{ borderRadius: '8px', objectFit: 'contain', display: 'block', margin: '0 auto' }} />
         <p>Complete seu perfil para um melhor atendimento</p>
       </div>
 

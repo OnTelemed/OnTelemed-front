@@ -89,7 +89,7 @@ export default function MobileHeader() {
             <header className="site-header mobile-app-header">
                 <div className="mobile-header-inner">
                     <Link href={user?.tipo_usuario === 'admin' ? '/admin/dashboard' : '/inicio'} className="mobile-header-brand">
-                        <img src="/images/logo_matriarca_icon.svg" alt="Matriarca" className="mobile-header-logo" />
+                        <span style={{ fontWeight: 800, fontSize: '1.25rem', color: 'var(--color-primary-600)' }}>OnTelemed</span>
                     </Link>
 
                     <div className="mobile-header-right">
@@ -129,8 +129,7 @@ export default function MobileHeader() {
                 {/* Drawer Header */}
                 <div className="mobile-drawer-header">
                     <div className="mobile-drawer-brand">
-                        <img src="/images/logo_matriarca_icon.svg" alt="Matriarca" className="mobile-drawer-logo" />
-                        <span className="mobile-drawer-title">Matriarca</span>
+                        <span className="mobile-drawer-title" style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--color-primary-600)' }}>OnTelemed</span>
                     </div>
                     <button
                         className="mobile-drawer-close"

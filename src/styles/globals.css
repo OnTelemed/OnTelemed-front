@@ -1,23 +1,70 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap');
+
+@import "tailwindcss";
+@import "./auth-split.css";
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+
 /* ============================================
    TELEMEDICINA - DESIGN SYSTEM
    Modern, Clean & Professional
    ============================================ */
 
-/* Import Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap');
-
 /* ============================================
    CSS VARIABLES - Design Tokens
    ============================================ */
 :root {
-	/* Primary Colors - Matriarca Teal / Modern Blue Hierarchy */
+	/* Shadcn Semantic Tokens */
+	--background: #ffffff;
+	--foreground: #09090b;
+	--card: #ffffff;
+	--card-foreground: #09090b;
+	--popover: #ffffff;
+	--popover-foreground: #09090b;
+	--primary: #005bbf;
+	--primary-foreground: #ffffff;
+	--secondary: #f4f4f5;
+	--secondary-foreground: #18181b;
+	--muted: #f4f4f5;
+	--muted-foreground: #71717a;
+	--accent: #f4f4f5;
+	--accent-foreground: #18181b;
+	--destructive: #ef4444;
+	--destructive-foreground: #fafafa;
+	--border: #e4e4e7;
+	--input: #e4e4e7;
+	--ring: #005bbf;
+	--radius: 0.5rem;
+
+	/* Primary Colors - Telemed Teal / Modern Blue Hierarchy */
 	--color-primary-50: #f0f9ff;
 	--color-primary-100: #e0f2fe;
 	--color-primary-200: #bae6fd;
 	--color-primary-300: #7dd3fc;
 	--color-primary-400: #38bdf8;
 	--color-primary-500: #005bbf;  /* Creative blue */
-	--color-primary-600: #004b61;  /* Matriarca Brand Teal */
+	--color-primary-600: #004b61;  /* Telemed Brand Teal */
 	--color-primary-700: #003a4b;
 	--color-primary-800: #002834;
 	--color-primary-900: #00171e;
@@ -52,7 +99,7 @@
 	--color-info-soft: #eff6ff;
 	--color-info-border: #dbeafe;
 
-	/* Gradients - Matriarca Premium Gradient */
+	/* Gradients - Telemed Premium Gradient */
 	--gradient-primary: linear-gradient(135deg, #005bbf 0%, #004b61 100%);
 	--gradient-primary-hover: linear-gradient(135deg, #0284c7 0%, #003a4b 100%);
 	--gradient-subtle: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
@@ -196,7 +243,10 @@
 
 /* ============================================
    GLOBAL RESET & BASE STYLES
+   Envolvido em @layer base para que os utilitários do Tailwind v4
+   (que ficam em @layer utilities) consigam sobrescrevê-lo.
    ============================================ */
+@layer base {
 *,
 *::before,
 *::after {
@@ -502,6 +552,7 @@ svg {
 	max-width: 100%;
 	height: auto;
 }
+} /* end @layer base */
 
 /* ============================================
    UTILITY CLASSES

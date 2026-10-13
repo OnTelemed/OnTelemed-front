@@ -79,8 +79,8 @@ export default function Sidebar({ activeId: propActiveId, className = '' }: Prop
     >
       <div className="sidebar-top">
         <div className="sidebar-logo">
-          <div className="logo-inner">
-            <img src="/images/logo_matriarca_icon.svg" alt="Matriarca" width={36} height={36} style={{ borderRadius: '8px', objectFit: 'contain' }} />
+          <div className="logo-inner" title="OnTelemed">
+            <span style={{ fontWeight: 800, fontSize: '1.1rem', color: 'var(--color-primary-600)', letterSpacing: '-0.5px' }}>OT</span>
           </div>
         </div>
       </div>

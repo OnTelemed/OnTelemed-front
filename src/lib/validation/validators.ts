@@ -11,8 +11,8 @@ export const DEFAULT_ALLOWED_DOMAINS = [
   'zoho.com',
   'yandex.com',
   'gmx.com',
-  'matriarca.com.br',
-  'matriarca.com',
+  'telemed.com.br',
+  'telemed.com',
   'telemedicina.com.br'
 ];
 

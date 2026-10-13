@@ -122,7 +122,7 @@ export default function AdminPacientes() {
                </div>
                <div className="info">
                   <h3>{selectedPaciente.nome_completo}</h3>
-                  <p>Paciente Matriarca</p>
+                  <p>Paciente OnTelemed</p>
                </div>
             </div>
 
